@@ -1,8 +1,5 @@
 package Math::Cryptarithm;
 
-$Math::Cryptarithm::VERSION = '0.1';
-$Math::Cryptarithm::AUTHOR  = 'cpan:CYFUNG';
-
 use strict;
 use warnings;
 use Algorithm::Permute;
@@ -17,17 +14,18 @@ sub new {
 
 sub _check_syntax_of_an_equation {
     my $equation = $_[0];
-    # to be written in versions > 0.1
+    # to be written
     return 1;
 }
 
 sub _seperate_lhs_rhs {
     my $eq_text = $_[0];
     my $i = index($eq_text, "=");
-    return [ substr($eq_text, 0, $i-1 ), substr($eq_text, $i+1) ];
+    return [ substr($eq_text, 0, $i ), substr($eq_text, $i+1) ];
 }
 
 sub _replacement {
+    my $original_text = $_[0];
     my $text = $_[0];
     my @arr_ab = @{$_[1]};
     my @arr_digits = @{$_[2]};
@@ -37,18 +35,17 @@ sub _replacement {
 
     #BEGIN: cut leading zeros
     substr($text,0,1) = " " 
-        if substr($text,0,1) eq '0' && substr($text,1,1) =~ m/\d/;
+        if substr($text,0,1) eq '0' && substr($text,1,1) =~ m/[0-9]/;
     for my $i (1..(length($text) - 2) ) {
         if (    substr($text,$i,1) eq '0' 
-             && substr($text,$i-1,1) !~ m/\d/ 
+             && substr($text,$i-1,1) !~ m/[1-9]/
              && substr($text,$i+1,1) =~ m/\d/ ) 
         { 
-            substr($text,$i,1) = " " 
+            substr($text,$i,1) = " ";
         }
     }
     #END cut leading zeros
-
-    return eval $text;
+    return $text;
 }
 
 sub _list_alphabets {
@@ -93,7 +90,11 @@ sub solve {
                 _replacement( $eqs_lhs[$i] , \@arr_alphabets, \@res );
             my $str_rhs = 
                 _replacement( $eqs_rhs[$i] , \@arr_alphabets, \@res );
-            next COMBIN_TEST unless $str_lhs == $str_rhs ;
+            die "LHS is not numeric:\n $eqs_lhs[$i]\n\"$str_lhs\"\n" 
+                if (eval $str_lhs) !~ m/^[0-9]+$/;
+            die "RHS is not numeric:\n $eqs_rhs[$i]\n\"$str_rhs\"\n" 
+                if (eval $str_rhs) !~ m/^[0-9]+$/;
+            next COMBIN_TEST unless (eval $str_lhs) == (eval $str_rhs) ;
             $ok = 1;
         }
         if ($ok) {
@@ -128,4 +129,3 @@ sub solve_ans_in_equations {
 }
 
 1;
-
