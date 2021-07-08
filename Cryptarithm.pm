@@ -1,5 +1,8 @@
 package Math::Cryptarithm;
 
+$Math::Cryptarithm::VERSION = '0.1';
+$Math::Cryptarithm::AUTHOR  = 'cpan:CYFUNG';
+
 use strict;
 use warnings;
 use Algorithm::Permute;
