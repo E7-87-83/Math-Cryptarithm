@@ -19,7 +19,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 # Preloaded methods go here.
@@ -109,11 +109,13 @@ sub solve {
                 _replacement( $eqs_lhs[$i] , \@arr_alphabets, \@res );
             my $str_rhs = 
                 _replacement( $eqs_rhs[$i] , \@arr_alphabets, \@res );
+            my $val_lhs = eval $str_lhs;
+            my $val_rhs = eval $str_rhs;
             die "LHS is not numeric:\n $eqs_lhs[$i]\n\"$str_lhs\"\n" 
-                if (eval $str_lhs) !~ m/^[0-9]+$/;
+                if $val_lhs  !~ m/^[0-9]+$/;
             die "RHS is not numeric:\n $eqs_rhs[$i]\n\"$str_rhs\"\n" 
-                if (eval $str_rhs) !~ m/^[0-9]+$/;
-            next COMBIN_TEST unless (eval $str_lhs) == (eval $str_rhs) ;
+                if $val_rhs !~ m/^[0-9]+$/;
+            next COMBIN_TEST unless $val_lhs == $val_rhs;
             $ok = 1;
         }
         if ($ok) {
@@ -157,7 +159,7 @@ Math::Cryptarithm - Solving simple cryptarithm.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 
 =head1 DESCRIPTION
@@ -235,11 +237,11 @@ Currently the module runs slowly when the number of variables is equal to or mor
 
 =head2 setRep($symbol)
 
-Whether allow repetitions. 1 is no repetitions. 0 means repetitions are allowed. Default should be 1.
+To determine whether allow repetitions. 1 is no repetitions. 0 means repetitions are allowed. Default should be 1.
 
 =head2 setLeadingZeros($symbol)
 
-Whether allow zeros as possible values as the leading part of a word. 1 is allowed. 0 means not allowed. Default should be 1.
+To determine whether allow zeros as possible values as the leading part of a number. 1 is allowed. 0 means not allowed. Default should be 1.
 
 =head1 AUTHOR
 
