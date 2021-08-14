@@ -20,7 +20,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = qv('v0.20.1');
+our $VERSION = qv('v0.20.2');
 
 
 # Preloaded methods go here.
@@ -160,7 +160,7 @@ Math::Cryptarithm - Solving simple cryptarithm.
 
 =head1 VERSION
 
-Version 0.20.1
+Version 0.20.2
 
 
 =head1 DESCRIPTION

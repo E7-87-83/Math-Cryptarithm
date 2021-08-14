@@ -15,9 +15,11 @@
 #     AUTHOR => [q[e78783 <e78783@tqgtyn10aqxuxoi0mkfbldi5vh.jx.internal.cloudapp.net>]]
 #     BUILD_REQUIRES => {  }
 #     CONFIGURE_REQUIRES => {  }
+#     LICENSE => q[perl]
+#     META_MERGE => { resources=>{ bugtracker=>{ web=>q[https://github.com/E7-87-83/Math-Cryptarithm/issues] }, homepage=>q[https://github.com/E7-87-83/Math-Cryptarithm], repository=>{ type=>q[git], url=>q[https://github.com/E7-87-83/Math-Cryptarithm.git], web=>q[https://github.com/E7-87-83/Math-Cryptarithm] } } }
 #     NAME => q[Math::Cryptarithm]
-#     PREREQ_PM => {  }
-#     TEST_REQUIRES => {  }
+#     PREREQ_PM => { Algorithm::Permute=>q[0.16], Test::More=>q[1.00] }
+#     TEST_REQUIRES => { Test::More=>q[1.00] }
 #     VERSION_FROM => q[lib/Math/Cryptarithm.pm]
 
 # --- MakeMaker post_initialize section:
@@ -57,11 +59,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Math::Cryptarithm
 NAME_SYM = Math_Cryptarithm
-VERSION = v0.20.1
+VERSION = v0.20.2
 VERSION_MACRO = VERSION
-VERSION_SYM = v0_20_1
+VERSION_SYM = v0_20_2
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = v0.20.1
+XS_VERSION = v0.20.2
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -256,7 +258,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Math-Cryptarithm
-DISTVNAME = Math-Cryptarithm-v0.20.1
+DISTVNAME = Math-Cryptarithm-v0.20.2
 
 
 # --- MakeMaker macro section:
@@ -486,11 +488,12 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '  - '\''e78783 <e78783@tqgtyn10aqxuxoi0mkfbldi5vh.jx.internal.cloudapp.net>'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: '\''0'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Test::More: '\''1.00'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: '\''0'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'dynamic_config: 1' >> META_new.yml
 	$(NOECHO) $(ECHO) 'generated_by: '\''ExtUtils::MakeMaker version 7.62, CPAN::Meta::Converter version 2.150010'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) 'license: unknown' >> META_new.yml
+	$(NOECHO) $(ECHO) 'license: perl' >> META_new.yml
 	$(NOECHO) $(ECHO) 'meta-spec:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  url: http://module-build.sourceforge.net/META-spec-v1.4.html' >> META_new.yml
 	$(NOECHO) $(ECHO) '  version: '\''1.4'\''' >> META_new.yml
@@ -499,8 +502,11 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '  directory:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
-	$(NOECHO) $(ECHO) 'requires: {}' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: v0.20.1' >> META_new.yml
+	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Algorithm::Permute: '\''0.16'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'resources:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  homepage: https://github.com/E7-87-83/Math-Cryptarithm' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: v0.20.2' >> META_new.yml
 	$(NOECHO) $(ECHO) 'x_serialization_backend: '\''CPAN::Meta::YAML version 0.018'\''' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
@@ -512,7 +518,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '   "dynamic_config" : 1,' >> META_new.json
 	$(NOECHO) $(ECHO) '   "generated_by" : "ExtUtils::MakeMaker version 7.62, CPAN::Meta::Converter version 2.150010",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "license" : [' >> META_new.json
-	$(NOECHO) $(ECHO) '      "unknown"' >> META_new.json
+	$(NOECHO) $(ECHO) '      "perl_5"' >> META_new.json
 	$(NOECHO) $(ECHO) '   ],' >> META_new.json
 	$(NOECHO) $(ECHO) '   "meta-spec" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",' >> META_new.json
@@ -537,11 +543,21 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '         "requires" : {}' >> META_new.json
+	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Algorithm::Permute" : "0.16"' >> META_new.json
+	$(NOECHO) $(ECHO) '         }' >> META_new.json
+	$(NOECHO) $(ECHO) '      },' >> META_new.json
+	$(NOECHO) $(ECHO) '      "test" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Test::More" : "1.00"' >> META_new.json
+	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "v0.20.1",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "resources" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '      "homepage" : "https://github.com/E7-87-83/Math-Cryptarithm"' >> META_new.json
+	$(NOECHO) $(ECHO) '   },' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "v0.20.2",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "x_serialization_backend" : "JSON::PP version 4.06"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
@@ -851,10 +867,11 @@ testdb_static :: static pure_all
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Math-Cryptarithm" VERSION="v0.20.1">' > Math-Cryptarithm.ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Math-Cryptarithm" VERSION="v0.20.2">' > Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Solving simple cryptarithm.</ABSTRACT>' >> Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>e78783 &lt;e78783@tqgtyn10aqxuxoi0mkfbldi5vh.jx.internal.cloudapp.net&gt;</AUTHOR>' >> Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> Math-Cryptarithm.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Algorithm::Permute" VERSION="0.16" />' >> Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-thread-multi-5.34" />' >> Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> Math-Cryptarithm.ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> Math-Cryptarithm.ppd
